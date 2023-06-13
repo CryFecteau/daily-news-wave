@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.navStyled {
+    position: fixed;
+    height: 100vh;
+}

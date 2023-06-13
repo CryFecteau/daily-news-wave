@@ -1,5 +1,5 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { AfterViewInit, ChangeDetectorRef, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { NewsfeedService } from 'src/app/serivces/newsfeed.service';
 @Component({
@@ -9,24 +9,29 @@ import { NewsfeedService } from 'src/app/serivces/newsfeed.service';
 })
 export class SideNavComponent implements AfterViewInit {
   title = 'NewsProject';
+  orgSources: any = [];
   sources: any = [];
   articles: any = [];
   selectedSource: string = 'Top 10 Articles';
   @ViewChild(MatSidenav) sideNav!: MatSidenav;
+  searchTerm: string = '';
 
   ngOnInit(): void {
     this.newsApi.initArticles().subscribe((res: any) => {
-      console.log(res);
       this.articles = res.articles;
     })
     this.newsApi.initSources().subscribe((res: any) => {
-      console.log(res);
+      this.orgSources = res.sources;
       this.sources = res.sources;
+    })
+    this.newsApi.getTechFeed().subscribe((res: any) => {
+      console.log(res);
     })
   }
   constructor(private observer: BreakpointObserver, private cd: ChangeDetectorRef, private newsApi: NewsfeedService) {
 
   }
+
   ngAfterViewInit(): void {
     this.sideNav.opened = true;
     this.observer.observe(['(max-width:800px)'])
@@ -41,7 +46,8 @@ export class SideNavComponent implements AfterViewInit {
       })
     this.cd.detectChanges();
   }
-  searchSource(source: any) {
+
+  getSource(source: any) {
     this.newsApi.getArticlesByID(source.id)
       .subscribe((res: any) => {
         this.selectedSource = source.name
@@ -54,5 +60,16 @@ export class SideNavComponent implements AfterViewInit {
           this.sideNav.close();
         }
       })
+  }
+
+  updateSearch(searchTerm: string) {
+    this.searchTerm = searchTerm;
+
+    if (!this.searchTerm) {
+      this.sources = this.orgSources;
+    }
+
+    this.sources = this.sources.filter((src: { name: string; }) =>
+      src.name.toLowerCase().includes(this.searchTerm.toLowerCase()));
   }
 }

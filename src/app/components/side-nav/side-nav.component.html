@@ -7,17 +7,26 @@
 </mat-toolbar>
 
 
-<mat-sidenav-container>
-    <mat-sidenav #sidenav="matSidenav" class="p-5">
+<mat-sidenav-container class="containerStyled">
+    <mat-sidenav #sidenav="matSidenav" class="p-5 navStyled">
+        <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+            <mat-icon (click)="this.sideNav.close()" *ngIf="sideNav?.opened">close</mat-icon>
+        </button>
         <div class="mt-5">
             <p class="text-lg font-semibold leading-6 text-gray-900">News Sources</p>
         </div>
         <mat-divider class="mb-2"></mat-divider>
-        <ul role="list" class="divide-y divide-gray-100" *ngFor="let source of sources">
-            <li class="flex-col py-2 hover:bg-gray-100 cursor-pointer" (click)="searchSource(source)">
-                <div class="flex gap-x-2 px-2">
+        <div>
+            <mat-form-field class="w-5/6">
+                <mat-label>Search</mat-label>
+                <input matInput type="text" [(ngModel)]="searchTerm" (ngModelChange)="updateSearch(searchTerm)" />
+            </mat-form-field>
+        </div>
+        <ul role="list" class="divide-y divide-gray-100 px-3" *ngFor="let source of sources">
+            <li class="flex-col py-2 hover:bg-gray-100 cursor-pointer" (click)="getSource(source)">
+                <div class="flex gap-x-2">
                     <mat-icon>event_note</mat-icon>
-                    <div class="min-w-0 flex-auto">
+                    <div class="min-w-0 flex-auto mr-5">
                         <p class="text-sm font-semibold leading-6 text-gray-900">{{source.name}}</p>
                     </div>
                 </div>
@@ -29,7 +38,9 @@
             </li>
         </ul>
     </mat-sidenav>
-    <mat-sidenav-content class="content mat-elevation-z4">
+    <mat-sidenav-content position="end" class="navContentedStyled">
+
+
         <section class="bg-gray-100 pt-5 flex flex-col h-full">
             <div class="container px-5 mx-auto max-w-7x1 flex flex-wrap w-full mb-4 p-4">
                 <div class="flex flex-wrap w-full mb-4 p-4">
