@@ -2,7 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+
 .navStyled {
+    margin-top: 3rem;
     position: fixed;
-    height: 100vh;
+    height: 95%;
+    box-shadow: 10px 20px 50px -25px rgb(0 0 0);
+}
+
+.closeBtn {
+    position: absolute;
+    top: 20px;
+    right: 40px;
 }

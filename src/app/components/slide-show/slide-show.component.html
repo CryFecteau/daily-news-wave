@@ -1,0 +1,41 @@
+<section class="carouselSec mt-5">
+    <div class="mb-3 mt-3 px-8">
+        <p class="text-2xl font-semibold">Top Tech News</p>
+        <div class="h-1 w-60 rounded" style="background: black; position: relative; bottom: .7rem;"></div>
+    </div>
+    <div class="container">
+        <div class="carousel">
+            <input type="radio" name="slides" checked="checked" id="slide-1">
+            <input type="radio" name="slides" id="slide-2">
+            <input type="radio" name="slides" id="slide-3">
+            <input type="radio" name="slides" id="slide-4">
+            <input type="radio" name="slides" id="slide-5">
+            <input type="radio" name="slides" id="slide-6">
+            <ul class="carousel__slides">
+                <li class="carousel__slide" *ngFor="let article of techFeed">
+                    <figure>
+                        <div>
+                            <img src="{{article.urlToImage}}" alt="">
+                        </div>
+                        <figcaption class="slideDetails">
+                            <span class="title">{{article.title}}</span>
+                            <span class='description'>{{article.description}}</span>
+                            <span class="content">
+                                {{article.content}}
+                                <a class="text-blue-700" href="{{article.url}}" target="_blank">
+                                    read more....
+                                </a>
+                            </span>
+                            <span class="credit">-{{article.author}} <br /> {{article.source.name}} </span>
+                        </figcaption>
+                    </figure>
+                </li>
+            </ul>
+            <ul class="carousel__thumbnails">
+                <li *ngFor="let article of techFeed; let i = index">
+                    <label for="slide-{{i + 1}}"><img src="{{article.urlToImage}}" alt="{{article.title}}"></label>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>

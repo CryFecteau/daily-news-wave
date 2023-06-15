@@ -45,10 +45,12 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { SlideShowComponent } from './components/slide-show/slide-show.component';
 @NgModule({
   declarations: [
     AppComponent,
-    SideNavComponent
+    SideNavComponent,
+    SlideShowComponent
   ],
   imports: [
     BrowserModule,

@@ -24,9 +24,6 @@ export class SideNavComponent implements AfterViewInit {
       this.orgSources = res.sources;
       this.sources = res.sources;
     })
-    this.newsApi.getTechFeed().subscribe((res: any) => {
-      console.log(res);
-    })
   }
   constructor(private observer: BreakpointObserver, private cd: ChangeDetectorRef, private newsApi: NewsfeedService) {
 
